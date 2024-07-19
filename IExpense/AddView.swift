@@ -12,6 +12,7 @@ struct AddView: View {
     @State private var name = ""
     @State private var type = "Personal"
     @State private var amount = 0.0
+    let settings = Settings()
     
     var expenses: Expenses
     
@@ -27,7 +28,7 @@ struct AddView: View {
                     }
                 }
                 
-                TextField("Amount", value: $amount, format: .currency(code: "USD"))
+                TextField("Amount", value: $amount, format: .currency(code: settings.currency))
                     .keyboardType(.decimalPad)
             }
             .navigationTitle("Add Expense")
