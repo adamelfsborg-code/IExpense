@@ -2,6 +2,7 @@ import SwiftUI
 
 @Observable
 class Expenses {
+
     var items = [ExpenseItem]() {
         didSet {
             if let encoded = try? JSONEncoder().encode(items) {
@@ -60,12 +61,12 @@ struct ExpenseView: View {
 }
 
 struct ContentView: View {
+    @State private var path = [Int]()
     @State private var expenses = Expenses()
-    @State private var showingAddExpense = false
     
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             List {
                 Section("Personal") {
                     ForEach(expenses.items.filter {$0.type == "Personal" } ) { item in
@@ -80,14 +81,14 @@ struct ContentView: View {
                 }
             }
             .navigationTitle("IExpense")
+            .navigationDestination(for: Int.self) { _ in
+                AddView(expenses: expenses)
+            }
             .toolbar {
                 Button("Add expense", systemImage: "plus") {
-                    showingAddExpense = true
+                    path = [32]
                 }
             }
-            .sheet(isPresented: $showingAddExpense, content: {
-                AddView(expenses: expenses)
-            })
         }
     }
     
