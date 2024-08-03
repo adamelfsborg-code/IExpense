@@ -1,8 +1,16 @@
+import SwiftData
 import Foundation
 
-struct ExpenseItem: Identifiable, Codable, Hashable  {
-    var id = UUID()
-    let name: String
-    let type: String
-    let amount: Double
+
+@Model
+class ExpenseItem: Hashable  {
+    var name: String
+    var type: String
+    var amount: Double
+    
+    init(name: String, type: String, amount: Double) {
+        self.name = name
+        self.type = type
+        self.amount = amount
+    }
 }
