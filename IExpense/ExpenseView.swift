@@ -37,6 +37,9 @@ struct ExpenseView: View {
                     .foregroundStyle(.secondary)
             }
         }
+        .accessibilityElement()
+        .accessibilityLabel("\(item.name), \(Text(item.amount, format: .currency(code: settings.currency)))")
+        .accessibilityHint("\(item.type)")
     }
 }
 
